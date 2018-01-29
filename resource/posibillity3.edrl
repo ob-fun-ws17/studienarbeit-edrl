@@ -1,0 +1,21 @@
+application:
+  in:
+    mouse-moved: mouse-moved-event
+  out:
+    mouse-moved-percent: console
+---
+relation:
+  input:
+    - mouse-moved
+    - screen-size
+  out: mouse-moved-percent
+  rule:
+    - mouse-moved
+    - div
+    - screen-size
+---
+relation:
+  in:
+  out: screen-size
+  rule:
+   - 1000
