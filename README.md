@@ -1,5 +1,4 @@
-# EDRL
-Event-Driven-Relation-Language
+Event-Driven-Relation-Language ( In Arbeit )
 
 Zum bauen des Projektes:
 
