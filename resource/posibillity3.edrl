@@ -1,8 +1,10 @@
 application:
   in:
-    mouse-moved: mouse-moved-event
+    - name: mouse-moved
+      origin: mouse-moved-event
   out:
-    mouse-moved-percent: console
+    - name: mouse-moved-percent
+      target: console
 ---
 relation:
   input:

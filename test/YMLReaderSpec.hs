@@ -24,8 +24,23 @@ relationYaml = "\
 \  - screen-size \n\
 \"
 
+applicationYaml :: ByteString
+applicationYaml = "\
+\input: \n\
+\  - name: mouse-moved \n\
+\    origin: mouse-moved-event \n\
+\out: \n\
+\  - name: mouse-moved-percent \n\
+\    target: console \n\
+\"
+
+
+
+
 spec :: Spec
 spec =
   describe "reader" $ do
     it "reads relations" $
       (decode relationYaml :: Maybe Relation) `shouldBe` Just (Relation ["mouse-moved","screen-size"] "mouse-moved-percent" ["mouse-moved","div","screen-size"])
+    it "reads relations" $
+      (decode applicationYaml :: Maybe Application) `shouldBe` Just (Application ([Application_Input "mouse-moved" "mouse-moved-event"]) ([Application_Output "mouse-moved-percent" "console"]))
