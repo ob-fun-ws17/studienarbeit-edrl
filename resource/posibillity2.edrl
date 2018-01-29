@@ -1,0 +1,79 @@
+application:
+  in:
+    palyndrom-in: system-in
+  out:
+    palyndrom-result: system-out
+---
+table:
+  in:
+    palyndrom-in: pal-in
+  out:
+    palyndrom-word: pal-word
+  accumulator:
+    word-buffer: list
+  predicate: is-word-end
+  rule:
+    end:
+      - raise
+      - word-buffer
+      - into
+      - pal-word
+    not-end:
+      - word-buffer
+      - append
+      - pal-in
+---
+predicate: is-word-end
+  in:
+    c: char
+  out:
+    end:
+      - c
+      - eq
+      - ' '
+    not-end:
+    	- not
+      - end
+---
+table:
+  in:
+    palyndrom-word: pal-word
+  out:
+    palyndrom-word-inverse: pal-inverse
+  accumulator:
+    inverse-word-buffer: list
+  predicate:
+    is-word-end:
+      c: pal-word
+  rule:
+    end:
+      - raise
+      - inverse-word-buffer
+      - into
+      - pal-inverse
+    not-end:
+      - word-buffer
+      - prepend
+      - pal-in
+---
+table:
+  in:
+    palyndrom-word: pal-word
+    palyndrom-word-inverse: pal-inverse
+  out:
+    palyndrom-result: result
+  predicate:
+    eq:
+      1: pal-word
+      2: pal-inverse
+  rule:
+    equal:
+      - raise
+      - 'true'
+      - into
+      - result
+    not-equal:
+      - raise
+      - 'true'
+      - into
+      - result

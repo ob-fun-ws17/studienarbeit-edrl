@@ -1,0 +1,52 @@
+name:                EDRL
+-- license:
+-- synopsis:
+-- description:
+category:            Misc
+version:             0.1.0.0
+-- homepage:
+-- license-file:
+-- author:
+-- maintainer:
+copyright:           2017 Author name here
+-- build-type:
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Lib,DataDefinitions
+  build-depends:       base >= 4.7 && < 5
+  default-language:    Haskell2010
+
+executable EDRL-exe
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , EDRL
+  default-language:    Haskell2010
+
+test-suite EDRL-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , EDRL
+                     , hspec
+                     , QuickCheck
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location:
+benchmark criterion
+  type:  exitcode-stdio-1.0
+  hs-source-dirs:  benchmark
+  main-is:  Bench.hs
+  build-depends:  base
+                , EDRL
+                , criterion
+  ghc-options:  -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
