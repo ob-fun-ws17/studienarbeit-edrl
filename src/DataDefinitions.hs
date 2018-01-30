@@ -12,6 +12,7 @@ data Named_Value a =
 data Event =
   Add_Relation Relation
   | Start_Execution Application
+  | Recompute
   | Read_Output
   | Trigger_Event (Named_Value String)
   deriving(Eq,Show)
