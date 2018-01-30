@@ -17,5 +17,5 @@ main = run (State Set.empty Set.empty [] Map.empty Map.empty)
 run :: State -> IO State
 run s = do
   event <- retrieve_Event
-  let state = process s [event]
+  state <- process s [event]
   run state
