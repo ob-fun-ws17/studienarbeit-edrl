@@ -1,40 +1,20 @@
--- / A Lib module
-module DataDefinitions
-where
--- Data Definitions
-data Named_Value =
-   String_Value String String
-   | Integer_Value String Int
-  deriving(Eq,Show)
---data Type_Variable =
---  Predicate (String)
---  | Input (String)
---  deriving(Eq,Show)
-data Missing_Vars =
-  Missing_Vars [String]
-  deriving(Eq,Show)
-data Available_Vars =
-  Available_Vars [String]
-  deriving(Eq,Show)
---data Function =
---  Function ([Type_Variable],Type_Variable, Execution->Execution)
---  deriving(Show)
---data Compilation =
---  Compilation (Available_Vars,Missing_Vars)--,[Function])
---  deriving(Show)
---data Execution =
---  Execution [Named_Value]
---  deriving(Show)
-data EDRL_File =
-  EDRL_File String String
+module DataDefinitions where
+
+import Data.Set (Set)
+import qualified Data.Set as Set
+import Data.Map.Strict (Map)
+import qualified Data.Map.Strict as Map
+import YMLReader
+
+data Named_Value a =
+  Named_Value String a
   deriving(Eq,Show)
 data Event =
-  Add_File EDRL_File
-  | Start_Execution EDRL_File
+  Add_Relation Relation
+  | Start_Execution Application
   | Read_Output
-  | Trigger_Event Named_Value
+  | Trigger_Event (Named_Value String)
   deriving(Eq,Show)
 data State =
-  Empty_State   --finally my own State !!
-  | Filled_State Missing_Vars Available_Vars
+  State {missing ::Set String, available :: Set String, values :: [Named_Value String], order :: Map String [String], functions :: Map (String,String) [String]}  --finally my own State !!
   deriving(Eq,Show)
