@@ -16,15 +16,20 @@ emptyState = State Set.empty Set.empty [] Map.empty Map.empty
 spec :: Spec
 spec =
   describe "process" $ do
-
     it "processes Events" $
       (update emptyState Recompute) `shouldBe` emptyState
-    it "collects missing and available variables" $
-      (update emptyState (Add_Relation (Relation ["input1"] "output1" ["rule1"])))
-       `shouldBe` emptyState {missing = Set.singleton "input1" , available = Set.singleton "output1"}
+    it "collects missing variables" $
+      (missing $ update emptyState $ Add_Relation $ Relation ["input1"] "output1" ["rule1"])
+       `shouldBe` Set.singleton "input1"
+    it "collects available variables" $
+      (available $ update emptyState $ Add_Relation $ Relation ["input1"] "output1" ["rule1"])
+       `shouldBe` Set.singleton "output1"
+    it "collects multiple available variables" $
+      (available $ foldr update' emptyState [Add_Relation (Relation ["input1"] "output1" ["rule1"]),Add_Relation (Relation ["input2"] "output2" ["rule2"])])
+      `shouldBe` Set.fromList ["output1","output2"]
     it "collects multiple missing variables" $
-      (update (update emptyState (Add_Relation (Relation ["input1"] "output1" ["rule1"]))) (Add_Relation (Relation ["input2"] "output2" ["rule2"])))
-       `shouldBe` emptyState {missing = Set.fromList ["input1","input2"] , available =Set.fromList ["output1","output2"]}
+      (missing $ foldr update' emptyState [Add_Relation (Relation ["input1"] "output1" ["rule1"]),Add_Relation (Relation ["input2"] "output2" ["rule2"])])
+       `shouldBe` Set.fromList ["input1","input2"]
     it "deletes missing variables once provided" $
-      (update (update emptyState (Add_Relation (Relation ["input1"] "output1" ["rule1"]))) (Add_Relation (Relation ["output1"] "output2" ["rule2"])))
-      `shouldBe` emptyState {missing = Set.fromList ["input1"] , available =Set.fromList ["output1","output2"]}
+      (missing $ foldr update' emptyState [Add_Relation (Relation ["input1"] "output1" ["rule1"]),Add_Relation (Relation ["output1"] "output2" ["rule2"])])
+      `shouldBe` Set.fromList ["input1"]
