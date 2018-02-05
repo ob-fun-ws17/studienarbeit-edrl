@@ -1,7 +1,8 @@
 {-# LANGUAGE ScopedTypeVariables #-}
+-- | Stellt sicher das sich der Interpreter wie gewünscht verhält
 module InterpreterSpec(spec) where
 
-import Lib
+import Interpreter
 import YMLReader
 import DataDefinitions
 import Test.Hspec

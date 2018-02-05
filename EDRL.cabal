@@ -15,7 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib,DataDefinitions, YMLReader
+  exposed-modules:     Interpreter,DataDefinitions, YMLReader
   build-depends:       base
                        , yaml
                        , containers
@@ -35,7 +35,7 @@ executable EDRL-exe
 test-suite EDRL-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
-  other-modules:       DataDefinitionsSpec,InterpreterSpec, YMLReaderSpec
+  other-modules:       InterpreterSpec, YMLReaderSpec
   main-is:             Spec.hs
   build-depends:       base
                      , EDRL

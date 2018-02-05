@@ -1,14 +1,13 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE QuasiQuotes #-}
-
+-- | stellt sicher dass die YML-Files richtig gelesen werden können
 module YMLReaderSpec(spec) where
 
 import Test.Hspec
 import Test.QuickCheck
 import Data.ByteString (ByteString)
 import Data.Yaml
-import Lib
 import YMLReader
 import DataDefinitions
 
