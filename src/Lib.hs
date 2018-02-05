@@ -78,7 +78,9 @@ computeMissingAfterRelationAddon s rel = Set.union (missing s) $ Set.fromList $ 
 computeAvailableAfterRelationAddon s rel = Set.insert (output rel) (available s)
 
 process :: State -> [Event] -> IO State
-process s (Read_Output:remaining) = do  putStrLn ("current State is" ++ show s) >> process s remaining
+process s ((Read_Output app):remaining) = do
+   putStrLn ("output is: " ++ (show $ map (\a-> (a,retrieveValue s a)) $ map outputname $ appoutput app)) 
+   process s remaining
 process s (first:remaining) = do
   process (update s first) remaining
 process s [] = do return s

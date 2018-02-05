@@ -1,0 +1,8 @@
+appinput:
+  - inputname: const1
+    origin: "720"
+  - inputname: const2
+    origin: "2"
+appoutput:
+  - outputname: result
+    target: console

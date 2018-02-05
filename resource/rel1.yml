@@ -1,0 +1,8 @@
+input:
+  - const1
+  - const2
+output: const3
+rule:
+  - const1
+  - div
+  - const2

@@ -27,10 +27,10 @@ relationYaml = "\
 applicationYaml :: ByteString
 applicationYaml = "\
 \appinput: \n\
-\  - inputname: mouse-moved \n\
-\    origin: mouse-moved-event \n\
+\  - inputname: const1 \n\
+\    origin: \"12\" \n\
 \appoutput: \n\
-\  - outputname: mouse-moved-percent \n\
+\  - outputname: result \n\
 \    target: console \n\
 \"
 
@@ -43,7 +43,7 @@ spec =
     it "reads relations" $
       (decode relationYaml :: Maybe Relation) `shouldBe` Just (Relation ["mouse-moved","screen-size"] "mouse-moved-percent" ["mouse-moved","div","screen-size"])
     it "reads applications" $
-      (decode applicationYaml :: Maybe Application) `shouldBe` Just (Application ([Application_Input "mouse-moved" "mouse-moved-event"]) ([Application_Output "mouse-moved-percent" "console"]))
+      (decode applicationYaml :: Maybe Application) `shouldBe` Just (Application ([Application_Input "const1" "12"]) ([Application_Output "result" "console"]))
     it "reads nothing if format is not right" $
       (decode applicationYaml :: Maybe Relation) `shouldBe` Nothing
     it "reads nothing if format is not right" $
