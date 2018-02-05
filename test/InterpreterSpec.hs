@@ -17,7 +17,7 @@ spec :: Spec
 spec =
   describe "process" $ do
     it "processes Events" $
-      (update emptyState Recompute) `shouldBe` emptyState
+      (update emptyState $ Start_Execution $ Application [] []) `shouldBe` emptyState
     it "collects missing variables" $
       (missing $ update emptyState $ Add_Relation $ Relation ["input1"] "output1" ["rule1"])
        `shouldBe` Set.singleton "input1"
@@ -76,3 +76,13 @@ spec =
         ,Start_Execution (Application [Application_Input "const2" "2"] [])
         ])
       `shouldBe` Set.fromList [Named_Value "const1" 720,Named_Value "const2" 2,Named_Value "const3" 360,Named_Value "const4" 1440, Named_Value "result" 1800]
+    it "propagates changes correctly" $
+      (Set.fromList $ values $ foldl update emptyState [
+        Add_Relation (Relation [] "const1" ["720"])
+        ,Add_Relation (Relation ["const1","const2"] "const3" ["const1","div","const2"])
+        ,Add_Relation (Relation ["const1","const2"] "const4" ["const1","mul","const2"])
+        ,Add_Relation (Relation ["const3","const4"] "result" ["const3","add","const4"])
+        ,Start_Execution (Application [Application_Input "const2" "2"] [])
+        ,Trigger_Event $ Named_Value "const2" 3
+        ])
+      `shouldBe` Set.fromList [Named_Value "const1" 720,Named_Value "const2" 3,Named_Value "const3" 240,Named_Value "const4" 2160, Named_Value "result" 2400]

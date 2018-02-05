@@ -46,7 +46,6 @@ update s (Trigger_Event namedVal) =
       } in
       if triggerEventList == Nothing then s{errors = ("Error finding following Variables for: " ++ (name namedVal) ++ " in " ++ (show newState)):(errors newState)}
         else foldl update newState (Maybe.fromJust triggerEventList)
-update s (Recompute) = s { missing = Set.difference (missing s) (available s)}
 
 insert' ma (Application_Input name val) = Map.insert name [val] ma
 update' :: Event -> State -> State
