@@ -12,7 +12,7 @@ retrieve_Event = do
    return Read_Output
 
 main :: IO State
-main = run (State Set.empty Set.empty [] Map.empty Map.empty)
+main = run (State Set.empty Set.empty [] Map.empty Map.empty [] )
 
 run :: State -> IO State
 run s = do
