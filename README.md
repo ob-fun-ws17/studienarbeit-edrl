@@ -1,20 +1,23 @@
-Event-Driven-Relation-Language ( In Arbeit )
+#Event-Driven-Relation-Language Interpreter
 
 Zum bauen des Projektes:
 
 cd /path/to/folder
+
 stack build
 
-zum ausführen :
+zum ausfuehren :
 
 stack exec EDRL-exe
 
-Danach können folgende Aktionen ausgeführt werden:
+Danach koennen folgende befehle eingegeben werden:
 
-Laden eines Files:
-Ausführen einer Application:
+befehle                                                     Beispiel
+["add_relation","path/to/relation"]                         ["add_relation","d:\\Uni\\Functional\\git\\studienarbeit-edrl\\resource\\rel3.yml"]
+["start_execution","path/to/application"]                   ["start_execution","d:\\Uni\\Functional\\git\\studienarbeit-edrl\\resource\\app1.yml"]
+["read","path/to/application"]                              ["read","d:\\Uni\\Functional\\git\\studienarbeit-edrl\\resource\\app1.yml"]
+["change",variablenName,zahlAlsString]                      ["change","const1","360"]
 
-Wenn die Application geladen wurde, können folgende Aktionen unternommen werden:
+weitere Befehle befinden sich in der Datei commands.
 
-Event anstossen:
-Aktuellen Output lesen:
+unter Resource liegen einige Beispiel Relationen und Applikationen
